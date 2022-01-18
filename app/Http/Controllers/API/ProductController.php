@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Product;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\Product as ProductResource;
 use App\Events\ProductCreated;
 
@@ -33,12 +33,12 @@ class ProductController extends BaseController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'name' => 'required',
+            'name' => 'required | min:3',
             'detail' => 'required'
         ]);
 
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+            return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
         $product = Product::create($input);
