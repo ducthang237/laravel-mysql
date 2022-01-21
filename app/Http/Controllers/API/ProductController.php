@@ -43,7 +43,7 @@ class ProductController extends BaseController
 
         $product = Product::create($input);
 
-        event(new ProductCreated($product));
+        //event(new ProductCreated($product));
 
         return $this->sendResponse(new ProductResource($product), 'Product created successfully.');
     }
@@ -77,7 +77,7 @@ class ProductController extends BaseController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'name' => 'required',
+            'name' => 'required | min:3',
             'detail' => 'required'
         ]);
 
