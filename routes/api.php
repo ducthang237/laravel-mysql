@@ -62,5 +62,7 @@ Route::middleware(['auth:api', 'cors'])->group( function () {
         Route::delete('/delete/{id}', [PostController::class, 'destroy'])
             ->name('delete_post');
            // ->middleware('can:post.publish');    
+        
+        Route::post('/search', [PostController::class, 'search'])->name('search_posts');
     });
 });

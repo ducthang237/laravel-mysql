@@ -19,7 +19,7 @@ class PostsSeeder extends Seeder
         $author1 = User::where('email', 'reporter1@example.com')->first();
         $author2 = User::where('email', 'reporter2@example.com')->first();
         $faker = \Faker\Factory::create();
-        for ($i=0; $i < 10; $i++) { 
+        for ($i=0; $i < 5000; $i++) { 
           $title = $faker->sentence($nbWords = 6, $variableNbWords = true);
           $post = Post::create([
               'title' => $title, 
@@ -28,6 +28,8 @@ class PostsSeeder extends Seeder
               'published' => rand(0,1),
               'user_id' => $author1->id
           ]);
+          $post->addToIndex();
+
           $title = $faker->sentence($nbWords = 6, $variableNbWords = true);
           $post = Post::create([
               'title' => $title, 
@@ -36,6 +38,7 @@ class PostsSeeder extends Seeder
               'published' => rand(0,1),
               'user_id' => $author2->id
           ]);
+          $post->addToIndex();
         }
     }
 }

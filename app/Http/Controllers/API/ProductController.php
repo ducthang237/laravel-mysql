@@ -7,7 +7,6 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\Product as ProductResource;
-use App\Events\ProductCreated;
 
 class ProductController extends BaseController
 {
@@ -42,8 +41,6 @@ class ProductController extends BaseController
         }
 
         $product = Product::create($input);
-
-        //event(new ProductCreated($product));
 
         return $this->sendResponse(new ProductResource($product), 'Product created successfully.');
     }

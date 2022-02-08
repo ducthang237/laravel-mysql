@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\Post as PostResource;
 use App\Events\PostCreated;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends BaseController
 {
@@ -130,5 +132,24 @@ class PostController extends BaseController
         $post->delete();
 
         return $this->sendResponse([], 'Post deleted successfully.');
+    }
+    
+    /**
+     *  ElasticSearch
+     */
+    public function search(Request $request)
+    {
+        try {
+            $keyword = trim($request->input('keyword'));
+            $response = Post::searchByQuery([
+                'match' => [
+                    'title' => $keyword
+                ]
+            ])->toArray();
+            return $response;
+        } catch (Exception $ex) {
+            Log::error('Error search: '. $ex->getMessage());
+        }
+        
     }
 }

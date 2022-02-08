@@ -33,10 +33,17 @@ class UsersSeeder extends Seeder
         $user2->roles()->attach($reporter);
 
         $user3 = User::create([
-            'name' => 'Editor 1', 
-            'email' => 'editor1@example.com',
+            'name' => 'ThangLD Editor', 
+            'email' => 'ldthang3@cmcglobal.vn',
             'password' => bcrypt('123456')
         ]);
         $user3->roles()->attach($editor);
+
+        $user4 = User::create([
+            'name' => 'DucThang Editor', 
+            'email' => 'ducthang.237@gmail.com',
+            'password' => bcrypt('123456')
+        ]);
+        $user4->roles()->attach($editor);
     }
 }
